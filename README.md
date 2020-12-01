@@ -1,4 +1,4 @@
-# task_1_zyro
+# Application-Task-2
 
 ## Project setup
 ```
