@@ -17,41 +17,6 @@ export default {
   data() {
     return {
       containersData: null,
-      testData: [
-        {
-          id: 1,
-        },
-        {
-          id: 2,
-        },
-        {
-          id: 3,
-        },
-        {
-          id: 4,
-        },
-        {
-          id: 5,
-        },
-        {
-          id: 6,
-        },
-        {
-          id: 7,
-        },
-        {
-          id: 8,
-        },
-        {
-          id: 9,
-        },
-        {
-          id: 10,
-        },
-        {
-          id: 11,
-        },
-      ],
     };
   },
   computed: {
@@ -59,6 +24,16 @@ export default {
       return [{
 
       }];
+    },
+    testData() {
+      const newObj = [];
+      for (let x = 0; x < 50; x++) {
+        newObj.push({
+          id: x + 1,
+          title: `Name${x + 1}`,
+        });
+      }
+      return newObj;
     },
   },
   mounted() {
