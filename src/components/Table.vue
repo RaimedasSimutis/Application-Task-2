@@ -1,5 +1,6 @@
 <template>
-  <table v-if="data">
+  <div>
+    <table v-if="data">
     <tr>
       <th>No</th>
 <!--      <th>ID</th>-->
@@ -30,7 +31,12 @@
     </div>
     </tr>
   </table>
-
+    <select v-model="elementsPerPage">
+      <option :value="5">5</option>
+      <option :value="10">10</option>
+      <option :value="15">15</option>
+    </select>
+  </div>
 </template>
 
 <script>
@@ -47,34 +53,40 @@ export default {
       currentPage: 0,
       firstPage: 0,
       lastPage: 0,
-      visibleElements: 5,
+      elementsPerPage: 5,
       offset: 0,
     };
   },
   computed: {
     getData() {
       return this.data.filter((el, index) => {
-        return index >= this.offset && index < this.offset + this.visibleElements;
+        return index >= this.offset && index < this.offset + this.elementsPerPage;
       });
     },
     totalPages() {
-      return Math.ceil(this.data.length / this.visibleElements);
+      return Math.ceil(this.data.length / this.elementsPerPage);
     },
   },
   watch: {
+    elementsPerPage() {
+      this.currentPage = 0;
+      this.offset = 0;
+    },
     data() {
       console.log('data changed');
     },
   },
   methods: {
     nextPage() {
-      if (this.currentPage > 0) {
+      if (this.currentPage < this.totalPages - 1) {
         this.currentPage += 1;
+        this.offset += this.elementsPerPage;
       }
     },
     previousPage() {
       if (this.currentPage > 0) {
         this.currentPage -= 1;
+        this.offset -= this.elementsPerPage;
       }
     },
     changePage(pageNumber) {
