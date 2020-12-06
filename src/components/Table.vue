@@ -7,17 +7,21 @@
             :key="columnsIndex"
             @click="changeSort(column.property)"
             class="table__cell table__cell--head"
-            :class="{'sort-active' : sortByProperty === column.property}"
+            :class="{'table__cell--sort-active' : sortByProperty === column.property}"
           >
             {{column.title}}
             <span v-if="sortByProperty === column.property">
               <img
-                class="sort-icon"
+                class="table__sort-icon"
                 v-if="sortByType==='asc'"
-                src="../assets/caret-up-solid.svg"/>
-              <img class="sort-icon"
+                src="../assets/caret-up-solid.svg"
+                alt="asc"
+              />
+              <img class="table__sort-icon"
                  v-if="sortByType==='desc'"
-                 src="../assets/caret-down-solid.svg"/>
+                 src="../assets/caret-down-solid.svg"
+                 alt="desc"
+              />
             </span>
           </th>
       </tr>
@@ -47,27 +51,28 @@
               <select class="table__pagination-select" v-model="elementsPerPage">
                 <option :value="5">5</option>
                 <option :value="10">10</option>
-                <option :value="15">15</option>
+                <option :value="20">20</option>
+                <option :value="50">50</option>
                 <option value="all">All</option>
               </select>
           </td>
 
-          <td class="table__cell" align="right" colspan="2">
-            <span class="">
+          <td class="table__cell" align="right" :colspan="columns.length - 1">
+            <span>
                <a class="table__pagination-button" @click="goToFirstPage">
                 <img src="../assets/angle-double-left-solid.svg">
               </a>
-              <a class="table__pagination-button" @click="goToPreviousPage">
-                <img src="../assets/angle-left-solid.svg">
-              </a>
-              <a class="table__pagination-button" @click="goToNextPage">
-                <img src="../assets/angle-right-solid.svg">
-              </a>
-              <a class="table__pagination-button" @click="goToLastPage">
-                <img src="../assets/angle-double-right-solid.svg">
-              </a>
+<!--              <a class="table__pagination-button" @click="goToPreviousPage">-->
+<!--                <img src="../assets/angle-left-solid.svg">-->
+<!--              </a>-->
+<!--              <a class="table__pagination-button" @click="goToNextPage">-->
+<!--                <img src="../assets/angle-right-solid.svg">-->
+<!--              </a>-->
+<!--              <a class="table__pagination-button" @click="goToLastPage">-->
+<!--                <img src="../assets/angle-double-right-solid.svg">-->
+<!--              </a>-->
             </span>
-
+            <span class="table__pagination-status">{{currentPage+1}}/{{totalPages}}</span>
           </td>
         </tr>
       </tfoot>
@@ -126,28 +131,28 @@ export default {
       if (this.currentPage < this.totalPages - 1) {
         this.currentPage += 1;
         this.offset += this.elementsPerPage;
+        this.highlightedRowIndex = null;
       }
     },
     goToPreviousPage() {
       if (this.currentPage > 0) {
         this.currentPage -= 1;
         this.offset -= this.elementsPerPage;
+        this.highlightedRowIndex = null;
       }
     },
     goToFirstPage() {
       this.currentPage = 0;
       this.offset = 0;
+      this.highlightedRowIndex = null;
     },
     goToLastPage() {
       this.currentPage = this.totalPages;
       this.offset = this.elementsPerPage * (this.totalPages - 1);
-    },
-    changePage(pageNumber) {
-      console.log(pageNumber);
+      this.highlightedRowIndex = null;
     },
     sortBy(sortProperty, sortType) {
       this.data.sort((a, b) => {
-        // console.log(a[sortProperty], b[sortProperty]);
         const nameA = a[sortProperty];
         const nameB = b[sortProperty];
         if (sortType === 'asc') {
@@ -187,15 +192,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .sort-active {
-    /*background-color: #42b983;*/
-    /*background-color: #ececff;*/
-  }
-
-  .sort-icon {
-    height: 17px;
-  }
-
   .table {
     height: 100%;
     width: 100%;
@@ -219,12 +215,28 @@ export default {
 
     }
 
+    &__sort-icon {
+      height: 17px;
+      margin-left: 5px;
+      filter:
+        invert(100%)
+        sepia(100%)
+        saturate(0%)
+        hue-rotate(288deg)
+        brightness(102%)
+        contrast(102%);
+    }
+
     &__cell {
       padding: 20px;
       font-size: 15px;
 
       &--head {
         font-size: 18px;
+      }
+
+      &--sort-active {
+        background-color: rgba(0, 0, 0, 0.11);
       }
     }
 
@@ -252,18 +264,20 @@ export default {
     &__pagination {
       /*background-color: red;*/
       /*height: 60px;*/
-
     }
 
     &__pagination-select {
       /*margin-left: 40px;*/
     }
 
+    &__pagination-status {
+      font-weight: bold;
+    }
+
     &__pagination-button {
       img {
         padding: 0 10px;
         height: 20px;
-
       }
 
       &:hover {

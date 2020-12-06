@@ -24,7 +24,6 @@ import axios from 'axios';
 import Table from './Table.vue';
 import Popup from './Popup.vue';
 import AudioPlugin from './AudioPlugin.vue';
-import track from '../assets/komunalininku-balius.mp3';
 
 export default {
   name: 'HelloWorld',
@@ -65,9 +64,6 @@ export default {
         });
       }
       return newObj;
-    },
-    audio() {
-      return track;
     },
   },
   mounted() {

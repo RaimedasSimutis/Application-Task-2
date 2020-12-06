@@ -52,6 +52,7 @@ export default {
   methods: {
     playBackgroundMusic() {
       if (this.backgroundAudio) {
+        this.backgroundAudio.load();
         this.backgroundAudio.play();
         this.isAudioPlaying = true;
       }
