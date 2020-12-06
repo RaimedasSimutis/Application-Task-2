@@ -11,6 +11,10 @@
     <Popup
       ref="ref-popup"
     />
+    <AudioPlugin
+      track-name="Naratyvinis - Komunalininkų Balius"
+      track-path="../assets/komunalininku-balius.mp3"
+    />
   </section>
 
 </template>
@@ -19,10 +23,12 @@
 import axios from 'axios';
 import Table from './Table.vue';
 import Popup from './Popup.vue';
+import AudioPlugin from './AudioPlugin.vue';
+import track from '../assets/komunalininku-balius.mp3';
 
 export default {
   name: 'HelloWorld',
-  components: { Popup, Table },
+  components: { AudioPlugin, Popup, Table },
   props: {
     msg: String,
   },
@@ -60,6 +66,9 @@ export default {
       }
       return newObj;
     },
+    audio() {
+      return track;
+    },
   },
   mounted() {
     this.getData();
@@ -94,6 +103,7 @@ export default {
       this.$refs['ref-popup'].openPopup(cellData);
       this.clickedCellData = cellData;
     },
+
   },
 };
 </script>
