@@ -3,57 +3,31 @@
       <thead class="table__head">
         <tr class="table__row table__row--head">
           <th
-            @click="changeSort('id')"
+            v-for="(column, columnsIndex) in columns"
+            :key="columnsIndex"
+            @click="changeSort(column.property)"
             class="table__cell table__cell--head"
-            :class="{'sort-active' : sortByProperty === 'id'}"
+            :class="{'sort-active' : sortByProperty === column.property}"
           >
-            ID
-            <span v-if="sortByProperty === 'id'">
+            {{column.title}}
+            <span v-if="sortByProperty === column.property">
               <img
                 class="sort-icon"
                 v-if="sortByType==='asc'"
                 src="../assets/caret-up-solid.svg"/>
               <img class="sort-icon"
-                   v-if="sortByType==='desc'"
-                   src="../assets/caret-down-solid.svg"/>
+                 v-if="sortByType==='desc'"
+                 src="../assets/caret-down-solid.svg"/>
             </span>
           </th>
-          <th
-            @click="changeSort('title')"
-            class="table__cell table__cell--head"
-            :class="{'sort-active' : sortByProperty === 'title'}"
-          >
-            Full name
-            <span v-if="sortByProperty === 'title'">
-              <img
-                class="sort-icon"
-                v-if="sortByType==='asc'"
-                src="../assets/caret-up-solid.svg">
-              <img
-                class="sort-icon"
-                v-if="sortByType==='desc'"
-                src="../assets/caret-down-solid.svg">
-            </span>
-          </th>
-          <th
-          @click="changeSort('title')"
-          class="table__cell table__cell--head"
-          :class="{'sort-active' : sortByProperty === 'title'}"
-          >
-          Title
-          <span v-if="sortByProperty === 'title'">
-            <img class="sort-icon" v-if="sortByType==='asc'" src="../assets/caret-up-solid.svg">
-            <img class="sort-icon" v-if="sortByType==='desc'" src="../assets/caret-down-solid.svg">
-          </span>
-        </th>
       </tr>
       </thead>
 
       <tbody class="table__body">
-        <tr class="table__row" v-for="element in  getData" :key="element['Pakelimo iraso ID']">
-          <td class="table__cell">{{element.id}}</td>
-          <td class="table__cell">{{element.title}}</td>
-          <td class="table__cell">{{element.title}}</td>
+        <tr class="table__row" v-for="(element, elementIndex) in getData" :key="elementIndex">
+          <td class="table__cell" v-for="(column, columnIndex) in columns" :key="columnIndex">
+            {{element[column.property]}}
+          </td>
         </tr>
       </tbody>
       <tfoot class="table__foot">
@@ -96,6 +70,9 @@ export default {
     data: {
       required: true,
       type: Array,
+    },
+    columns: {
+      required: true,
     },
   },
   data() {

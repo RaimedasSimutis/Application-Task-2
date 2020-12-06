@@ -24,9 +24,20 @@ export default {
   },
   computed: {
     tableColumns() {
-      return [{
-
-      }];
+      return [
+        {
+          title: 'ID',
+          property: 'id',
+        },
+        {
+          title: 'Title',
+          property: 'title',
+        },
+        {
+          title: 'Random',
+          property: 'random',
+        },
+      ];
     },
     testData() {
       const newObj = [];
@@ -34,6 +45,7 @@ export default {
         newObj.push({
           id: x + 1,
           title: `Name${Math.random() * 100}`,
+          random: `Surname${Math.random() * 100}`,
         });
       }
       return newObj;
