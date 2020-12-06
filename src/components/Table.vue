@@ -100,8 +100,8 @@ export default {
       lastPage: 0,
       elementsPerPage: 10,
       offset: 0,
-      sortByProperty: 'title',
-      sortByType: 'desc',
+      sortByProperty: null,
+      sortByType: null,
       highlightedRowIndex: null,
     };
   },
@@ -181,6 +181,7 @@ export default {
         this.sortByType = this.sortByType === 'asc' ? 'desc' : 'asc';
       } else {
         this.sortByProperty = sortProperty;
+        this.sortByType = 'asc';
       }
     },
     emitLastClickedCellData(cellData) {

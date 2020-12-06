@@ -28,7 +28,7 @@ import AudioPlugin from './AudioPlugin.vue';
 import Loader from './Loader.vue';
 
 export default {
-  name: 'HelloWorld',
+  name: 'MainView',
   components: {
     Loader, AudioPlugin, Popup, Table,
   },
