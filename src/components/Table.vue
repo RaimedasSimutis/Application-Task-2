@@ -28,6 +28,8 @@
           class="table__row table__row--body"
           v-for="(element, elementIndex) in getData"
           :key="elementIndex"
+          :class="{'table__row--highlighted': highlightedRowIndex === elementIndex}"
+          @click="highlightRow(elementIndex)"
         >
           <td
             class="table__cell" v-for="(column, columnIndex) in columns"
@@ -93,6 +95,7 @@ export default {
       offset: 0,
       sortByProperty: 'title',
       sortByType: 'desc',
+      highlightedRowIndex: null,
     };
   },
   computed: {
@@ -176,6 +179,9 @@ export default {
     emitLastClickedCellData(cellData) {
       this.$emit('cellClick', cellData);
     },
+    highlightRow(rowIndex) {
+      this.highlightedRowIndex = rowIndex;
+    },
   },
 };
 </script>
@@ -226,12 +232,17 @@ export default {
       border-bottom: 1px solid #f2f2f2;
       height: 60px;
 
-      &--head{
+      &--highlighted {
+        background-color: #ececff;
+      }
+
+      &--head {
         cursor: pointer;
       }
 
-      &--body{
+      &--body {
         cursor: pointer;
+
         &:hover {
           background-color: #ececff;
         }
