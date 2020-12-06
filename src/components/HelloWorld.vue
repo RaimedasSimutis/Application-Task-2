@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <Table :data="testData" :columns="tableColumns"/>
-  </div>
+  <section class="content">
+    <div class="table-container">
+      <Table class="table" :data="testData" :columns="tableColumns"/>
+    </div>
+  </section>
+
 </template>
 
 <script>
@@ -30,7 +33,7 @@ export default {
       for (let x = 0; x < 50; x++) {
         newObj.push({
           id: x + 1,
-          title: `Name${x + 1}`,
+          title: `Name${Math.random() * 100}`,
         });
       }
       return newObj;
@@ -70,9 +73,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  th {
-    border: 1px solid black;
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+
+.table-container {
+  /*height: 100vh;*/
+  width: 70vw;
+  padding: 50px;
+
+}
 
 h3 {
   margin: 40px 0 0;
