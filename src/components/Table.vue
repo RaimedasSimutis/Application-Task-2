@@ -24,7 +24,11 @@
       </thead>
 
       <tbody class="table__body">
-        <tr class="table__row" v-for="(element, elementIndex) in getData" :key="elementIndex">
+        <tr
+          class="table__row table__row--body"
+          v-for="(element, elementIndex) in getData"
+          :key="elementIndex"
+        >
           <td
             class="table__cell" v-for="(column, columnIndex) in columns"
             :key="columnIndex"
@@ -179,6 +183,7 @@ export default {
 <style scoped lang="scss">
   .sort-active {
     /*background-color: #42b983;*/
+    /*background-color: #ececff;*/
   }
 
   .sort-icon {
@@ -192,6 +197,8 @@ export default {
     border-radius: 10px;
     border-collapse: collapse;
     overflow: hidden;
+    box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
+    -moz-box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
 
     &__head {
       background-color: #6c7ae0;
@@ -218,6 +225,17 @@ export default {
     &__row {
       border-bottom: 1px solid #f2f2f2;
       height: 60px;
+
+      &--head{
+        cursor: pointer;
+      }
+
+      &--body{
+        cursor: pointer;
+        &:hover {
+          background-color: #ececff;
+        }
+      }
     }
 
     &__pagination {
