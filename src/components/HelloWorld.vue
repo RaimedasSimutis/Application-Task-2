@@ -1,8 +1,15 @@
 <template>
   <section class="content">
     <div class="table-container">
-      <Table class="table" :data="testData" :columns="tableColumns"/>
+      <Table
+        class="table"
+        :data="testData"
+        :columns="tableColumns"
+        @cellClick="cellClicked"
+      />
+      {{clickedCellData}}
     </div>
+
   </section>
 
 </template>
@@ -20,6 +27,7 @@ export default {
   data() {
     return {
       containersData: null,
+      clickedCellData: null,
     };
   },
   computed: {
@@ -79,6 +87,9 @@ export default {
       }
 
       return result;
+    },
+    cellClicked(cellData) {
+      this.clickedCellData = cellData;
     },
   },
 };

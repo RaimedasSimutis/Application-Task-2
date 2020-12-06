@@ -25,14 +25,19 @@
 
       <tbody class="table__body">
         <tr class="table__row" v-for="(element, elementIndex) in getData" :key="elementIndex">
-          <td class="table__cell" v-for="(column, columnIndex) in columns" :key="columnIndex">
+          <td
+            class="table__cell" v-for="(column, columnIndex) in columns"
+            :key="columnIndex"
+            @click="emitLastClickedCellData(element[column.property])"
+          >
             {{element[column.property]}}
           </td>
         </tr>
       </tbody>
+
       <tfoot class="table__foot">
         <tr class="table__row table__pagination" >
-          <td class="table__cell" align="left"  colspan="1">
+          <td class="table__cell" align="left" colspan="1">
               <select class="table__pagination-select" v-model="elementsPerPage">
                 <option :value="5">5</option>
                 <option :value="10">10</option>
@@ -163,6 +168,9 @@ export default {
       } else {
         this.sortByProperty = sortProperty;
       }
+    },
+    emitLastClickedCellData(cellData) {
+      this.$emit('cellClick', cellData);
     },
   },
 };
