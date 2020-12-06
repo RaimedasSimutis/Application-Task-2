@@ -63,11 +63,22 @@ export default {
       margin: 0;
     }
 
+   &_paragraph {
+     color: #ececec;
+   }
+
     &__button-close {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 15px;
+      right: 15px;
       cursor: pointer;
+      filter:
+        invert(100%)
+        sepia(100%)
+        saturate(0%)
+        hue-rotate(288deg)
+        brightness(102%)
+        contrast(102%);
 
       img {
         height: 20px;
