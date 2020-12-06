@@ -1,12 +1,12 @@
 <template>
   <transition name="slide-fade">
-  <div v-show="isPopupActive" class="popup">
-    <a class="popup__button-close" @click="closePopup">
-      <img src="../assets/times-solid.svg" alt="close">
-    </a>
-    <h3 class="popup__heading">Info</h3>
-    <p class="popup_paragraph">Last clicked cell data: {{message}}</p>
-  </div>
+    <div v-show="isPopupActive" class="popup">
+      <a class="popup__button-close" @click="closePopup">
+        <img src="../assets/times-solid.svg" alt="close">
+      </a>
+      <h3 class="popup__heading">Info</h3>
+      <p class="popup_paragraph">Last clicked cell data: {{message}}</p>
+    </div>
   </transition>
 </template>
 

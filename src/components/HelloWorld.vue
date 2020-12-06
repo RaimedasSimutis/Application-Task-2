@@ -1,5 +1,6 @@
 <template>
   <section class="content">
+    <Loader :isActive="isLoading"/>
     <div class="table-container">
       <Table
         class="table"
@@ -24,17 +25,18 @@ import axios from 'axios';
 import Table from './Table.vue';
 import Popup from './Popup.vue';
 import AudioPlugin from './AudioPlugin.vue';
+import Loader from './Loader.vue';
 
 export default {
   name: 'HelloWorld',
-  components: { AudioPlugin, Popup, Table },
-  props: {
-    msg: String,
+  components: {
+    Loader, AudioPlugin, Popup, Table,
   },
   data() {
     return {
       containersData: null,
       clickedCellData: null,
+      isLoading: true,
     };
   },
   computed: {
@@ -66,14 +68,19 @@ export default {
       return newObj;
     },
   },
-  mounted() {
+  created() {
     this.getData();
   },
   methods: {
     getData() {
+      this.isLoading = true;
       axios.get('https://raw.githubusercontent.com/vilnius/atlieku-tvarkymas/master/Data/konteineriai%20ir%20ju%20aptarnavimas/Konteineriu%20pakelimai.csv')
         .then((response) => {
           this.containersData = this.csvToArray(response.data);
+        })
+        .catch((reason) => Promise.reject(reason))
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     csvToArray(csv) {
