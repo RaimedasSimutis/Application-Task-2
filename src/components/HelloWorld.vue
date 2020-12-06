@@ -45,14 +45,17 @@ export default {
         {
           title: 'ID',
           property: 'id',
+          align: 'center',
         },
         {
           title: 'Title',
           property: 'title',
+          align: 'center',
         },
         {
           title: 'Random',
           property: 'random',
+          align: 'center',
         },
       ];
     },

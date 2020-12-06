@@ -5,9 +5,10 @@
           <th
             v-for="(column, columnsIndex) in columns"
             :key="columnsIndex"
-            @click="changeSort(column.property)"
             class="table__cell table__cell--head"
             :class="{'table__cell--sort-active' : sortByProperty === column.property}"
+            :align="column.align"
+            @click="changeSort(column.property)"
           >
             {{column.title}}
             <span v-if="sortByProperty === column.property">
@@ -38,6 +39,7 @@
           <td
             class="table__cell" v-for="(column, columnIndex) in columns"
             :key="columnIndex"
+            :align="column.align"
             @click="emitLastClickedCellData(element[column.property])"
           >
             {{element[column.property]}}
