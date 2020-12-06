@@ -7,9 +7,10 @@
         :columns="tableColumns"
         @cellClick="cellClicked"
       />
-      {{clickedCellData}}
     </div>
-
+    <Popup
+      ref="ref-popup"
+    />
   </section>
 
 </template>
@@ -17,10 +18,11 @@
 <script>
 import axios from 'axios';
 import Table from './Table.vue';
+import Popup from './Popup.vue';
 
 export default {
   name: 'HelloWorld',
-  components: { Table },
+  components: { Popup, Table },
   props: {
     msg: String,
   },
@@ -89,6 +91,7 @@ export default {
       return result;
     },
     cellClicked(cellData) {
+      this.$refs['ref-popup'].openPopup(cellData);
       this.clickedCellData = cellData;
     },
   },
