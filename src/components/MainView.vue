@@ -52,18 +52,13 @@ export default {
           align: 'center',
         },
         {
-          title: 'Pickup location latitude',
+          title: 'Pickup location (lat)',
           property: 'Pakelimo tasko latitude',
           align: 'center',
         },
         {
-          title: 'Pickup location longitude',
+          title: 'Pickup location (long)',
           property: 'Pakelimo tasko longitude',
-          align: 'center',
-        },
-        {
-          title: 'Capacity, \u33A5',
-          property: 'Konteinerio talpa',
           align: 'center',
         },
         {
@@ -124,7 +119,6 @@ export default {
   }
 
 .table-container {
-  /*height: 100vh;*/
   width: 70vw;
   padding: 50px;
 
