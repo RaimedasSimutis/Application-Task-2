@@ -13,7 +13,6 @@
         src="../assets/volume-mute-solid.svg"
        >
     </a>
-
     <span>{{trackName}}</span>
   </div>
 </template>

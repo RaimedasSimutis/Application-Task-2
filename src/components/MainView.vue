@@ -3,8 +3,7 @@
     <Loader :isActive="isLoading"/>
     <div class="table-container">
       <Table
-        class="table"
-        :data="testData"
+        :dataArr="containersData"
         :columns="tableColumns"
         @cellClick="cellClicked"
       />
@@ -43,32 +42,36 @@ export default {
     tableColumns() {
       return [
         {
-          title: 'ID',
-          property: 'id',
+          title: 'Truck no.',
+          property: 'Automobilis',
           align: 'center',
         },
         {
-          title: 'Title',
-          property: 'title',
+          title: 'Pickup time',
+          property: 'Pakelimo data, laikas',
           align: 'center',
         },
         {
-          title: 'Random',
-          property: 'random',
+          title: 'Pickup location latitude',
+          property: 'Pakelimo tasko latitude',
+          align: 'center',
+        },
+        {
+          title: 'Pickup location longitude',
+          property: 'Pakelimo tasko longitude',
+          align: 'center',
+        },
+        {
+          title: 'Capacity, \u33A5',
+          property: 'Konteinerio talpa',
+          align: 'center',
+        },
+        {
+          title: 'Weight, kg',
+          property: 'Svoris kg.',
           align: 'center',
         },
       ];
-    },
-    testData() {
-      const newObj = [];
-      for (let x = 0; x < 50; x++) {
-        newObj.push({
-          id: x + 1,
-          title: `Name${Math.random() * 100}`,
-          random: `Surname${Math.random() * 100}`,
-        });
-      }
-      return newObj;
     },
   },
   created() {
@@ -102,7 +105,6 @@ export default {
 
         result.push(obj);
       }
-
       return result;
     },
     cellClicked(cellData) {

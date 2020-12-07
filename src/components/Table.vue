@@ -1,5 +1,5 @@
 <template>
-    <table class="table" v-if="data">
+    <table class="table" v-if="dataArr">
       <thead class="table__head">
         <tr class="table__row table__row--head">
           <th
@@ -62,17 +62,17 @@
           <td class="table__cell" align="right" :colspan="columns.length - 1">
             <span>
                <a class="table__pagination-button" @click="goToFirstPage">
-                <img src="../assets/angle-double-left-solid.svg">
+                <img src="../assets/angle-double-left-solid.svg" alt="angle-dbl-left">
               </a>
-<!--              <a class="table__pagination-button" @click="goToPreviousPage">-->
-<!--                <img src="../assets/angle-left-solid.svg">-->
-<!--              </a>-->
-<!--              <a class="table__pagination-button" @click="goToNextPage">-->
-<!--                <img src="../assets/angle-right-solid.svg">-->
-<!--              </a>-->
-<!--              <a class="table__pagination-button" @click="goToLastPage">-->
-<!--                <img src="../assets/angle-double-right-solid.svg">-->
-<!--              </a>-->
+              <a class="table__pagination-button" @click="goToPreviousPage">
+                <img src="../assets/angle-left-solid.svg" alt="angle-left">
+              </a>
+              <a class="table__pagination-button" @click="goToNextPage">
+                <img src="../assets/angle-right-solid.svg" alt="angle-right">
+              </a>
+              <a class="table__pagination-button" @click="goToLastPage">
+                <img src="../assets/angle-double-right-solid.svg" alt="angle-dbl-right">
+              </a>
             </span>
             <span class="table__pagination-status">{{currentPage+1}}/{{totalPages}}</span>
           </td>
@@ -85,9 +85,8 @@
 export default {
   name: 'Table',
   props: {
-    data: {
+    dataArr: {
       required: true,
-      type: Array,
     },
     columns: {
       required: true,
@@ -96,8 +95,6 @@ export default {
   data() {
     return {
       currentPage: 0,
-      firstPage: 0,
-      lastPage: 0,
       elementsPerPage: 10,
       offset: 0,
       sortByProperty: null,
@@ -110,22 +107,19 @@ export default {
       this.sortBy(this.sortByProperty, this.sortByType);
 
       if (this.elementsPerPage === 'all') {
-        return this.data;
+        return this.dataArr;
       }
-      return this.data.filter((el, index) => {
+      return this.dataArr.filter((el, index) => {
         return index >= this.offset && index < this.offset + this.elementsPerPage;
       });
     },
     totalPages() {
-      return Math.ceil(this.data.length / this.elementsPerPage);
+      return Math.ceil(this.dataArr.length / this.elementsPerPage) || 1;
     },
   },
   watch: {
     elementsPerPage() {
       this.goToFirstPage();
-    },
-    data() {
-      console.log('data changed');
     },
   },
   methods: {
@@ -149,12 +143,12 @@ export default {
       this.highlightedRowIndex = null;
     },
     goToLastPage() {
-      this.currentPage = this.totalPages;
+      this.currentPage = this.totalPages - 1;
       this.offset = this.elementsPerPage * (this.totalPages - 1);
       this.highlightedRowIndex = null;
     },
     sortBy(sortProperty, sortType) {
-      this.data.sort((a, b) => {
+      this.dataArr.sort((a, b) => {
         const nameA = a[sortProperty];
         const nameB = b[sortProperty];
         if (sortType === 'asc') {
@@ -172,11 +166,12 @@ export default {
             return -1;
           }
         }
-
         return 0;
       });
     },
     changeSort(sortProperty) {
+      this.goToFirstPage();
+
       if (this.sortByProperty === sortProperty) {
         this.sortByType = this.sortByType === 'asc' ? 'desc' : 'asc';
       } else {
@@ -208,14 +203,6 @@ export default {
     &__head {
       background-color: #6c7ae0;
       color: #ffffff;
-    }
-
-    &__body {
-
-    }
-
-    &__foot{
-
     }
 
     &__sort-icon {
@@ -264,15 +251,6 @@ export default {
       }
     }
 
-    &__pagination {
-      /*background-color: red;*/
-      /*height: 60px;*/
-    }
-
-    &__pagination-select {
-      /*margin-left: 40px;*/
-    }
-
     &__pagination-status {
       font-weight: bold;
     }
@@ -281,11 +259,12 @@ export default {
       img {
         padding: 0 10px;
         height: 20px;
+        position: relative;
+        top: 4px;
       }
 
       &:hover {
         cursor: pointer;
-        /*background: rgba(135,135,135,0.43);*/
       }
     }
 
