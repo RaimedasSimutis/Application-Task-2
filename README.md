@@ -3,6 +3,13 @@
 ## About 
 
 This project uses [Vilnius API](https://api.vilnius.lt/) provided waste disposal data. :recycle: 
+Here you can find such "useful" information as waste pickup times and locations, waste containers weights
+and other, nasty things related stuff. :poop: Also, while using app, please feel free to reward yourself with some great music inside. :blush:
+
+P.S. Table has more than 6800+ rows of records, so be careful while abusing "view all" button 
+(which actually shouldn't even be there). :eyes: 
+
+[DEMO](https://application-task-2.vercel.app/)
 
 ## Task
 - Use any public API or make own to load JSON with 5000+ records; :white_check_mark:
