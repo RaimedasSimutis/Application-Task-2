@@ -63,9 +63,9 @@ export default {
       margin: 0;
     }
 
-   &_paragraph {
-     color: #ececec;
-   }
+    &_paragraph {
+      color: #ececec;
+    }
 
     &__button-close {
       position: absolute;

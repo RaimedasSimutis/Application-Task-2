@@ -25,7 +25,7 @@
               />
             </span>
           </th>
-      </tr>
+        </tr>
       </thead>
 
       <tbody class="table__body">
@@ -50,18 +50,18 @@
       <tfoot class="table__foot">
         <tr class="table__row table__pagination" >
           <td class="table__cell" align="left" colspan="1">
-              <select class="table__pagination-select" v-model="elementsPerPage">
-                <option :value="5">5</option>
-                <option :value="10">10</option>
-                <option :value="20">20</option>
-                <option :value="50">50</option>
-                <option value="all">All</option>
-              </select>
+            <select class="table__pagination-select" v-model="elementsPerPage">
+              <option :value="5">5</option>
+              <option :value="10">10</option>
+              <option :value="20">20</option>
+              <option :value="50">50</option>
+              <option value="all">All</option>
+            </select>
           </td>
 
           <td class="table__cell" align="right" :colspan="columns.length - 1">
             <span>
-               <a class="table__pagination-button" @click="goToFirstPage">
+              <a class="table__pagination-button" @click="goToFirstPage">
                 <img src="../assets/angle-double-left-solid.svg" alt="angle-dbl-left">
               </a>
               <a class="table__pagination-button" @click="goToPreviousPage">
@@ -104,12 +104,13 @@ export default {
   },
   computed: {
     getData() {
-      this.sortBy(this.sortByProperty, this.sortByType);
+      const sortedData = this.sortBy(this.sortByProperty, this.sortByType);
 
       if (this.elementsPerPage === 'all') {
-        return this.dataArr;
+        return sortedData;
       }
-      return this.dataArr.filter((el, index) => {
+
+      return sortedData.filter((el, index) => {
         return index >= this.offset && index < this.offset + this.elementsPerPage;
       });
     },
@@ -148,7 +149,8 @@ export default {
       this.highlightedRowIndex = null;
     },
     sortBy(sortProperty, sortType) {
-      this.dataArr.sort((a, b) => {
+      const dataArrClone = JSON.parse(JSON.stringify(this.dataArr));
+      return dataArrClone.sort((a, b) => {
         const nameA = a[sortProperty];
         const nameB = b[sortProperty];
         if (sortType === 'asc') {

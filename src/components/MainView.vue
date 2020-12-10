@@ -16,7 +16,6 @@
       track-path="../assets/komunalininku-balius.mp3"
     />
   </section>
-
 </template>
 
 <script>
@@ -79,7 +78,6 @@ export default {
         .then((response) => {
           this.containersData = this.csvToArray(response.data);
         })
-        .catch((reason) => Promise.reject(reason))
         .finally(() => {
           this.isLoading = false;
         });
@@ -106,7 +104,6 @@ export default {
       this.$refs['ref-popup'].openPopup(cellData);
       this.clickedCellData = cellData;
     },
-
   },
 };
 </script>
@@ -118,24 +115,8 @@ export default {
     align-items: center;
   }
 
-.table-container {
-  width: 70vw;
-  padding: 50px;
-
-}
-
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+  .table-container {
+    width: 70vw;
+    padding: 50px;
+  }
 </style>
